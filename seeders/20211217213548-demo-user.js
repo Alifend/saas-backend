@@ -8,6 +8,7 @@ module.exports = {
       "Users",
       [
         {
+          id: 1,
           nombre: "Andres Celis",
           email: "andres.celis@correounivalle.edu.co",
           tipo: "C.C",
@@ -15,6 +16,31 @@ module.exports = {
             "$2a$10$mARD/qq0PY4YJwTG85HyZORkVISq7CZwT2Y3F/I1vU89UGnspnW620",
           documento: "1114468755",
           rol: "superAdmin",
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      {}
+    );
+    await queryInterface.bulkInsert(
+      "Tenants",
+      [
+        {
+          id: 1,
+          hostname: "localhost",
+          estado: true,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ],
+      {}
+    );
+    await queryInterface.bulkInsert(
+      "User_Tenant",
+      [
+        {
+          TenantId: 1,
+          UserId: 1,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

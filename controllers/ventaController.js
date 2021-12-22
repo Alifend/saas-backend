@@ -2,6 +2,7 @@ const model = require("../models");
 const userServices = require("../services/userServices");
 const tenantServices = require("../services/tenantServices");
 const productServices = require("../services/productServices");
+const { where } = require("sequelize/dist");
 
 exports.addVenta = async (req, res) => {
   const { email, domain, direccion, telefono, total, productos } = req.body;
@@ -29,7 +30,8 @@ exports.addVenta = async (req, res) => {
         const detalleVenta = await model.DetalleVenta.create({
           cantidad: element.cantidad,
         });
-
+        const newStock = product.stock - element.cantidad;
+        await productServices.editProduct(newStock, element.id, domain);
         await venta.setDetalleVenta(detalleVenta);
         await detalleVenta.setProduct(product);
       });
@@ -38,8 +40,22 @@ exports.addVenta = async (req, res) => {
   } else res.status(400).send("el tenant no existe");
 };
 
-exports.getVenta = async (req, res) => {
-  const venta = await model.Venta.findOne(req.body.id);
+exports.getVentas = async (req, res) => {
+  const { domain, email } = req.body;
+  const venta = await model.Venta.findAll({
+    include: {
+      model: model.User,
+      include: {
+        model: model.Tenant,
+        where: {
+          hostname: domain,
+        },
+      },
+      where: {
+        email,
+      },
+    },
+  });
   !venta ? res.status(400).send("venta not found!") : res.send(venta);
 };
 

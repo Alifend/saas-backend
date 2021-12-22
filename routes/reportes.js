@@ -5,6 +5,6 @@ const { ultimosUsers } = require("../controllers/reportesController");
 
 const reportesRouter = express.Router();
 
-reportesRouter.get("/lastusers:domain", ultimosUsers);
+reportesRouter.post("/lastusers", ultimosUsers);
 
 module.exports = reportesRouter;

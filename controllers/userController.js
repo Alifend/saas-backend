@@ -60,7 +60,7 @@ exports.loginUser = async (req, res) => {
     const realPassword = user.dataValues.password;
     if (await bcrypt.compare(password, realPassword)) {
       const accessToken = generateAccessToken(email);
-      res.send({ JWT: accessToken });
+      res.send({ JWT: accessToken, id: user.id, nombre: user.nombre });
     } else {
       res.statusMessage = "contraseña incorrecta";
       res.status(400).end();

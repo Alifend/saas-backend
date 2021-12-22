@@ -22,23 +22,16 @@ exports.addVenta = async (req, res) => {
           element.id,
           domain
         );
-        if (product) {
-          const detalleVenta = await model.DetalleVenta.create({
-            cantidad: element.cantidad,
-          });
+        if (!product) {
+          {
+          }
+        }
+        const detalleVenta = await model.DetalleVenta.create({
+          cantidad: element.cantidad,
+        });
 
-          await venta.setDetalleVenta(detalleVenta);
-          await detalleVenta.setProduct(product);
-        } else
-          res
-            .status(400)
-            .send(
-              "el producto con id " +
-                element.id +
-                " en el tenant " +
-                domain +
-                " no existe"
-            );
+        await venta.setDetalleVenta(detalleVenta);
+        await detalleVenta.setProduct(product);
       });
       res.send(venta);
     } else res.status(400).send("el usuario no existe");

@@ -4,8 +4,8 @@ const tenantServices = require("../services/tenantServices");
 const productServices = require("../services/productServices");
 
 exports.addVenta = async (req, res) => {
-  const { user, domain, direccion, telefono, total, productos } = req.body;
-  const userTemp = await userServices.findUserByEmailTenant(user, domain);
+  const { email, domain, direccion, telefono, total, productos } = req.body;
+  const userTemp = await userServices.findUserByEmailTenant(email, domain);
   const tenant = await tenantServices.findTenantByDomain(domain);
   const productList = productos;
   if (tenant) {

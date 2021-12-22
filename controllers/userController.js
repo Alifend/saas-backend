@@ -62,9 +62,13 @@ exports.loginUser = async (req, res) => {
       const accessToken = generateAccessToken(email);
       res.send({ JWT: accessToken });
     } else {
-      res.send("contraseña incorrecta");
+      res.statusMessage = "contraseña incorrecta";
+      res.status(400).end();
     }
-  } else res.send("Usuario incorrecto");
+  } else {
+    res.statusMessage = "Usuario incorrecto";
+    res.status(400).end();
+  }
 };
 
 const generateAccessToken = (email) => {

@@ -58,15 +58,3 @@ exports.getVentas = async (req, res) => {
   });
   !venta ? res.status(400).send("venta not found!") : res.send(venta);
 };
-
-exports.getVentas = async (req, res) => {
-  res.send("en construccion");
-};
-
-exports.editVenta = async (req, res) => {
-  res.send("en construccion");
-};
-
-exports.deleteVenta = async (req, res) => {
-  res.send("en construccion");
-};

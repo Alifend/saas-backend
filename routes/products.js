@@ -6,16 +6,16 @@ const {
   getProduct,
   getProducts,
   editProduct,
-  deleteProduct
+  deleteProduct,
 } = require("../controllers/productController.js");
 
 const productsRouter = express.Router();
 
-productsRouter.get("/", getProducts);
+productsRouter.post("/", getProducts);
 
-productsRouter.post("/", addProduct);
+productsRouter.post("/crear", addProduct);
 
-productsRouter.get("/:id", getProduct);
+productsRouter.post("/:id", getProduct);
 
 productsRouter.put("/:id/edit", editProduct);
 

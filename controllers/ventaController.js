@@ -46,7 +46,8 @@ exports.addVenta = async (req, res) => {
 };
 
 exports.getVenta = async (req, res) => {
-  res.send("en construccion");
+  const venta = await model.Venta.findOne(req.body.id);
+  !venta ? res.status(400).send("venta not found!") : res.send(venta);
 };
 
 exports.getVentas = async (req, res) => {

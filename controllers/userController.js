@@ -65,6 +65,7 @@ exports.loginUser = async (req, res) => {
         id: user.id,
         nombre: user.nombre,
         rol: user.rol,
+        email: user.email,
       });
     } else {
       res.statusMessage = "contraseña incorrecta";

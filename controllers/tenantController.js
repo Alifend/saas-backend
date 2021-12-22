@@ -3,7 +3,9 @@ const model = require("../models");
 exports.getTenants = async (req, res) => {
   const tenant = await model.Tenant.findAll({
     where: {
-      [Op.not]: 1,
+      id: {
+        [Op.not]: 1,
+      },
     },
   });
   res.send(tenant);

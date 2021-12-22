@@ -16,11 +16,15 @@ exports.editTenants = async (req, res) => {
   const id = req.params.id;
   const tenant = await model.Tenant.findByPk(id);
   if (tenant) {
-    return await model.Tenant.update(!tenant.estado, {
-      where: {
-        id,
-      },
-    });
+    await model.Tenant.update(
+      { estado: !tenant.estado },
+      {
+        where: {
+          id,
+        },
+      }
+    );
+    res.send("tenant modificado con exito");
   } else res.status(400).send("no existe el tenant");
 };
 

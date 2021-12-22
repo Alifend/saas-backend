@@ -1,4 +1,5 @@
 const model = require("../models");
+const { Op } = require("sequelize");
 
 exports.getTenants = async (req, res) => {
   const tenant = await model.Tenant.findAll({

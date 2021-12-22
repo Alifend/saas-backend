@@ -3,14 +3,14 @@ const express = require("express");
 //import controaldor
 const {
   ultimosUsers,
-  bestSeller,
-  bestBuyer,
+  lastClients,
+  lastProducts,
 } = require("../controllers/reportesController");
 
 const reportesRouter = express.Router();
 
 reportesRouter.post("/lastusers", ultimosUsers);
-reportesRouter.get("/bestseller", bestSeller);
-reportesRouter.get("/bestbuyer", bestBuyer);
+reportesRouter.post("/lastproducts", lastProducts);
+reportesRouter.post("/lastclients", lastClients);
 
 module.exports = reportesRouter;

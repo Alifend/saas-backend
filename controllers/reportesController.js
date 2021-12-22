@@ -10,17 +10,11 @@ exports.ultimosUsers = async (req, res) => {
   if (!tenant) {
     res.send("tenant no encontrado");
   }
+  const query =
+    "SELECT u.nombre, u.createdAt FROM Tenants t INNER JOIN User_Tenant ut on t.id = ut.TenantId INNER JOIN Users u  on u.id = ut.UserId WHERE t.id = :id AND u.rol != 'admin'";
 
-  const result = await model.sequelize.query(
-    "SELECT Users.nombre, Users.createdAt " +
-      "FROM Users INNER JOIN User_Tenant on User_Tenant.UserId = Users.id " +
-      "INNER JOIN Tenants on User_Tenant.TenantId = :id " +
-      "ORDER BY createdAt DESC " +
-      "LIMIT 10",
-    {
-      replacements: { id: tenant.id },
-    }
-  );
-  console.log(result[0]);
+  const result = await model.sequelize.query(query, {
+    replacements: { id: tenant.id },
+  });
   res.send(result[0]);
 };

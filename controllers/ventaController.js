@@ -31,7 +31,11 @@ exports.addVenta = async (req, res) => {
           cantidad: element.cantidad,
         });
         const newStock = product.stock - element.cantidad;
-        await productServices.editProduct(newStock, element.id, domain);
+        await productServices.editProduct(
+          { stock: newStock },
+          element.id,
+          domain
+        );
         await venta.setDetalleVenta(detalleVenta);
         await detalleVenta.setProduct(product);
       });

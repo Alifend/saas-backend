@@ -13,7 +13,6 @@ exports.addProduct = async (req, res) => {
         nombre,
         descripcion,
         price,
-        Tenant: domain,
         imagen,
         stock,
       },
@@ -53,13 +52,15 @@ exports.editProduct = async (req, res) => {
 };
 
 exports.deleteProduct = async (req, res) => {
+  var host = req.get("origin ");
+  console.log(host, " ", req.body.domain);
   const id = req.params.id;
-  if (await productServices.findProductInTenant(id, req.body.domain)) {
-    await model.Product.destroy(req.body, {
-      where: {
-        id: id,
-      },
-    });
+  const producto = await productServices.findProductInTenant(
+    id,
+    req.body.domain
+  );
+  if (producto) {
+    await producto.destroy();
     res.send("producto eliminado con exito");
   } else res.status(400).send("no existe el producto");
 };
